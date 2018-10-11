@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "al",
+            "request": "launch",
+            "name": "My Personal Sandbox",
+            "server": "http://MyLocalSandbox",
+            "serverInstance": "NAV",
+            "authentication": "UserPassword",
+            "startupObjectId": 50101,
+            "startupObjectType": "Page",
+            "breakOnError": true
+        }
+    ]
+}
