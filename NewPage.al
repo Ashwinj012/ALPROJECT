@@ -28,3 +28,4 @@ page 50100 TestPage
         Message(CH);
     end;
 }
+
