@@ -122,7 +122,7 @@ page 50101 "PlayGround Enquiry"
     }
     var
         TypePrefferedG: Option " ",Slow,Medium,Fast;
-        AgeGroupG: Option " ","Below 8 Years","Between 8-15 Years","I Am an Adult";
+        AgeGroupG: Option " ","Below 8 Years","Between 8-15 Years","I am an Adult";
         RideMessage: TextConst ENU = 'We Have The Below Available Rides';
         RideContact: TextConst ENU = 'Contact Your Nearest Help Desk For More Details';
         RideListG: List of [text];
