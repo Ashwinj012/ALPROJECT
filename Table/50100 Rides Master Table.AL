@@ -172,7 +172,7 @@ table 50100 "Rides Master"
     }
     fieldgroups
     {
-        fieldgroup(Brick; "Ride ID", "Ride Type", Description, Speed, Image)
+        fieldgroup(Brick; "Ride ID", "Ride Type", Speed, Description, Image)
         {
 
         }
