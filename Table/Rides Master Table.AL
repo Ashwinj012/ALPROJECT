@@ -1,6 +1,8 @@
 table 50100 "Rides Master"
 {
     DataClassification = ToBeClassified;
+    LookupPageId = 50103;
+    Caption = 'Rides Master';
 
     fields
     {
@@ -14,16 +16,14 @@ table 50100 "Rides Master"
         {
             DataClassification = ToBeClassified;
             Caption = 'Description';
-            NotBlank = true;
         }
 
         field(22; "User Description"; Text[250])
         {
             DataClassification = ToBeClassified;
             Caption = 'User Description';
-            NotBlank = true;
         }
-        field(23; "Ride Duration"; Time)
+        field(23; "Ride Duration"; Duration)
         {
             DataClassification = ToBeClassified;
             Caption = 'Ride Duration';
@@ -32,6 +32,7 @@ table 50100 "Rides Master"
         {
             DataClassification = ToBeClassified;
             Caption = 'Image';
+            Subtype = Bitmap;
         }
         field(25; "Current Servicing Vendor"; Code[20])
         {
@@ -50,14 +51,22 @@ table 50100 "Rides Master"
         {
             DataClassification = ToBeClassified;
             Caption = 'Manager Incharge';
-            TableRelation = Employee."First Name";
+            TableRelation = Employee;
+            trigger OnValidate()
+            var
+                EmployeeL: Record Employee;
+            begin
+                if EmployeeL.Get("Manager Incharge") then begin
+                    "Manager ID" := EmployeeL."No.";
+                    "Manager Incharge" := EmployeeL.FullName();
+                end;
+            end;
         }
         field(28; "Emergency Maintainance Number"; Text[13])
         {
             DataClassification = ToBeClassified;
             Caption = 'Emergency Maintainance Number';
             ExtendedDatatype = PhoneNo;
-            NotBlank = true;
         }
         field(29; Inactive; Boolean)
         {
@@ -67,28 +76,107 @@ table 50100 "Rides Master"
         field(30; Speed; Option)
         {
             DataClassification = ToBeClassified;
+            Caption = 'Speed';
             OptionMembers = " ",Slow,Medium,Fast;
-            OptionCaption = '" ",Slow,Medium,Fast';
-            NotBlank = true;
+            OptionCaption = ' ,Slow,Medium,Fast';
         }
 
         field(31; "Age Group"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = " ","Below 8 Years","Between 8 - 15 Years","I am an Adult";
-            NotBlank = true;
+            Caption = 'Age Group';
+            OptionMembers = " ","Below 8 Years","Between 8 - 15 Years","Adult";
+        }
+        field(32; "Main Operator"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Main Operator';
+            TableRelation = Employee;
+            trigger OnValidate()
+            var
+                EmployeeL: Record Employee;
+            begin
+                if EmployeeL.Get("Main Operator") then begin
+                    "Main Operator ID" := EmployeeL."No.";
+                    "Main Operator" := EmployeeL.FullName();
+                end;
+            end;
+        }
+        field(33; "Alternate Operator"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Alternate Operator';
+            TableRelation = Employee;
+            trigger OnValidate()
+            var
+                EmployeeL: Record Employee;
+            begin
+                if EmployeeL.Get("Alternate Operator") then begin
+                    "Alternate Operator ID" := EmployeeL."No.";
+                    "Alternate Operator" := EmployeeL.FullName();
+                end;
+            end;
+        }
+        field(34; "Ride Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = " ",Land,Water;
+            Caption = 'Ride Type';
+        }
+        field(35; "Height Sensitive"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Height Sensitive';
+        }
+        field(36; "Manager ID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Manager ID';
+        }
+        field(37; "Main Operator ID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Main Operator ID';
+        }
+        field(38; "Alternate Operator ID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Alternate Operator ID';
+        }
+        field(39; "Reason for Inactive"; text[250])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Reason for Inactive';
+        }
+        field(40; "Service Count"; Integer)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Service Count';
+        }
+        field(41; "Service Duration"; Duration)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Service Duration';
         }
 
     }
+
 
     keys
     {
         key(PK; "Ride ID")
         {
             Clustered = true;
+
         }
     }
+    fieldgroups
+    {
+        fieldgroup(Brick; "Ride ID", "Ride Type", Description, Speed, Image)
+        {
 
+        }
+    }
     var
         Text_DeleteError: TextConst ENU = 'You cannot delete an active ride.';
 

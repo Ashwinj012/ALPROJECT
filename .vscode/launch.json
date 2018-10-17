@@ -8,9 +8,10 @@
             "server": "http://MyLocalSandbox",
             "serverInstance": "NAV",
             "authentication": "UserPassword",
-            "startupObjectId": 50101,
+            "startupObjectId": 9022,
             "startupObjectType": "Page",
-            "breakOnError": true
+            "breakOnError": true,
+            "schemaUpdateMode": "Synchronize"
         }
     ]
 }

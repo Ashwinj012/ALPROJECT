@@ -1,56 +1,77 @@
-page 50102 RidesMaster
+page 50103 "Rides Master List"
 {
-    PageType = Card;
+    PageType = List;
+    UsageCategory = Lists;
     ApplicationArea = All;
-    UsageCategory = Administration;
     SourceTable = "Rides Master";
+    Editable = false;
+    CardPageId = 50102;
 
     layout
     {
         area(Content)
         {
-            group("General Information")
+            repeater(Group)
             {
                 field("Ride ID"; "Ride ID")
                 {
                     ApplicationArea = All;
-                    Caption = 'Ride ID', Comment = 'This is for Ride ID Field';
+                    Caption = 'Ride ID';
+
                 }
                 field(Description; Description)
                 {
                     ApplicationArea = All;
                     Caption = 'Description';
-                    ShowMandatory = true;
+
                 }
-                field("User Description"; "User Description")
+                field(Speed; Speed)
                 {
                     ApplicationArea = All;
-                    Caption = 'User Description';
-                    ShowMandatory = true;
+                    Caption = 'Speed';
+
                 }
-                field(Inactive; Inactive)
+                field("Ride Type"; "Ride Type")
                 {
-                    ApplicationArea = all;
-                    Caption = 'Inactive';
+                    ApplicationArea = All;
+                    Caption = 'Ride Type';
+
                 }
                 field("Ride Duration"; "Ride Duration")
                 {
                     ApplicationArea = All;
                     Caption = 'Ride Duration';
+
+                }
+                field("Height Sensitive"; "Height Sensitive")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Height Sensitive';
+
+                }
+                field(Inactive; Inactive)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inactive';
+
                 }
             }
-            group("Maintainance Information")
+        }
+        area(Factboxes)
+        {
+            part("Ride Picture"; "Ride Picture Factbox")
             {
-                field("Manager Incharge"; "Manager Incharge")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Manager Incharge';
-                }
-                field("Current Servicing Vendor"; "Current Servicing Vendor")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Current Servicing Vendor';
-                }
+                ApplicationArea = all;
+                Caption = 'Ride Picture';
+                SubPageLink = "Ride ID" = field ("Ride ID");
+
+            }
+
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = all;
+                Caption = 'Notes';
+
             }
         }
     }
@@ -63,14 +84,11 @@ page 50102 RidesMaster
             {
                 ApplicationArea = All;
 
-                trigger OnAction()
+                trigger OnAction();
                 begin
 
                 end;
             }
         }
     }
-
-    var
-        myInt: Integer;
 }
